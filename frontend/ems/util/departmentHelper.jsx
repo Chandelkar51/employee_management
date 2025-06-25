@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
+import {toast} from 'react-toastify'
 
 export const columns=[
     {
@@ -36,7 +37,7 @@ export const DepartmentButtons=({_id, onDepartmentDelete})=>{
             }
             catch(error){
                 if(error.response && !error.response.data.success)
-                    alert(error.response.data.error);
+                    toast.error(error.response.data.error);
             }
             finally{
                 setDepLoading(false);

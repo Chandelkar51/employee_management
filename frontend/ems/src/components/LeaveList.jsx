@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import {useAuth} from '../context/auth.context.jsx'
 import { fetchEmployees }  from '../../util/EmployeeHelper.jsx'
+import { toast } from 'react-toastify'
+import { LoadingPage } from './LoadingPage.jsx'
 
 export const LeaveList = () => {
   const {user}=useAuth()
@@ -41,7 +43,7 @@ export const LeaveList = () => {
         }
       catch(error){
         if(error.response && !error.response.data.success)
-          alert(error.response.data.error);
+          toast.error(error.response.data.error);
       }
       finally{
         setLoading(false)
@@ -59,7 +61,6 @@ export const LeaveList = () => {
   
   let sno=1;
   return (
-    loading ? <div>Loading....</div> :
     <div className='px-5 py-2'>
       <div className='text-center my-2'>
         <h3 className='text-2xl font-bold'>{user.role=="employee"? "Your Leaves" : "Leave History"}</h3>
@@ -69,14 +70,15 @@ export const LeaveList = () => {
           placeholder='Search by name' 
           onChange={handleFilter}
           className='px-4 py-0.5 border' 
-        /> */}
+          /> */}
         {user.role=="employee" ?
         <Link to='/employee-dashboard/apply-leave'
-          className='px-4 py-1 ml-6 bg-teal-600 rounded text-white'
-          >Apply Leave
+        className='px-4 py-1 ml-6 bg-teal-600 rounded text-white'
+        >Apply Leave
         </Link> :""}
       </div>
 
+      {loading ? <LoadingPage /> :
       <div className='overflow-x-auto p-2 m-2'>
         {leaves.length >0 ? (
           <table className='w-full text-sm text-left text-gray-500'>
@@ -110,6 +112,7 @@ export const LeaveList = () => {
           </table>
         ) : <div className='border border-gray-300 text-center text-xl'>No Records</div>}
       </div>
+      }
     </div>
   )
 }

@@ -35,8 +35,8 @@ const Hero = () => {
             </div>
             <div className="mt-8 flex items-center justify-center md:justify-start">
               <a href="#demo" className="flex items-center text-teal-600 hover:text-teal-800 transition-colors">
-                <span className="mr-2">See how it works</span>
-                <ChevronRight size={16} />
+                {/* <span className="mr-2">See how it works</span> */}
+                {/* <ChevronRight size={16} /> */}
               </a>
             </div>
           </div>

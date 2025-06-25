@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {fetchDepartments}  from '../../util/EmployeeHelper.jsx'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 export const AddEmployee = () => {
     const [departments, setDepartments]=useState([])
@@ -43,13 +44,13 @@ export const AddEmployee = () => {
             });
 
             if(response.data.success){
-                alert("New Employee Added");
+                toast.success("New Employee Added");
                 navigate('/admin-dashboard/employee');
             }
         }
         catch(error){
           if(error.response && !error.response.data.success)
-            alert(error.response.data.error);
+            toast.error(error.response.data.error);
         }
     }
 

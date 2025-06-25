@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { LoadingPage } from './LoadingPage';
 const EditDepartment = () => {
   const {id}=useParams()
   const[department, setDepartment]=useState([])
@@ -21,7 +23,7 @@ const EditDepartment = () => {
         }
       catch(error){
         if(error.response && !error.response.data.success)
-          alert(error.response.data.error);
+          toast.error(error.response.data.error);
       }
       finally{
         setDepLoading(false);
@@ -43,18 +45,18 @@ const EditDepartment = () => {
           headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`},
         });
       if(response.data.success){
-        alert("Department updated");
+        toast.info("Department updated");
         navigate('/admin-dashboard/departments');
       }
     }
     catch(error){
       if(error.response && !error.response.data.success)
-        alert(error.response.data.error);
+        toast.error(error.response.data.error);
     }
   }
 
   return (
-    depLoading ? <div>Loading....</div> :
+    depLoading ? <LoadingPage /> :
     <div className='max-w-3xl mx-auto mt-10 bg-white p-8 rounded-md w-96'>
         <div>
           <h2 className='text-2xl font-bold mb-6'>Edit Department</h2>

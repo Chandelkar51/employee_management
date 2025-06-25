@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import {toast} from 'react-toastify'
+import { LoadingPage } from './LoadingPage'
 
 export const ViewEmployee = () => {
   const {id}=useParams()
@@ -20,7 +22,7 @@ export const ViewEmployee = () => {
       }
       catch(error){
         if(error.response && !error.response.data.success)
-          alert(error.response.data.error);
+          toast.error(error.response.data.error);
       }
     }
 
@@ -28,7 +30,7 @@ export const ViewEmployee = () => {
   },[]);
   
   return (
-    employee ? (
+    (employee.length !=0) ? (
     <div className='max-w-3xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md'>
       <h2 className='text-2xl font-medium mb-8 text-center'>
         Employee Details
@@ -70,6 +72,6 @@ export const ViewEmployee = () => {
         </div>
       </div>
     </div>
-    ) :<div>Loading....</div> 
+    ) : <LoadingPage />
   )
 }

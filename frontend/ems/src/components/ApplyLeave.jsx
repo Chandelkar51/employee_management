@@ -3,6 +3,7 @@ import { fetchEmployees }  from '../../util/EmployeeHelper.jsx'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/auth.context.jsx'
+import { toast } from 'react-toastify'
 
 export const ApplyLeave = (id) => {
     const navigate=useNavigate()
@@ -42,13 +43,13 @@ export const ApplyLeave = (id) => {
             });
 
             if(response.data.success){
-                alert("Leave applied");
+                toast.success("Leave applied");
                 navigate('/employee-dashboard/leave');
             }
         }
         catch(error){
           if(error.response && !error.response.data.success)
-            alert(error.response.data.error);
+            toast.error(error.response.data.error);
         }
     }
     

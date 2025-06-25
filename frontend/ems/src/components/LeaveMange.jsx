@@ -2,15 +2,18 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
-// import {Link} from 'react-router-dom'
 import { columns, LeaveButtons } from '../../util/leaveHelper';
+import {toast} from 'react-toastify'
+import { LoadingPage } from './LoadingPage';
 
 export const LeaveMange = () => {
   const [leave, setLeave]= useState([]);
   const [filters, setFilter]=useState([]);
+  const [loading, setLoading]=useState(false);
 
   useEffect(()=>{
-    const fetchLeves= async()=>{ 
+    const fetchLeves= async()=>{
+      setLoading(true);
       try{
         const response=await axios.get(import.meta.env.VITE_HOST+'/api/leave',
           {
@@ -38,8 +41,11 @@ export const LeaveMange = () => {
       }
       catch(error){
         if(error.response && !error.response.data.success){
-          alert(error.response.data.error);
+          toast.error(error.response.data.error);
         }
+      }
+      finally{
+        setLoading(false);
       }
     }
     fetchLeves();
@@ -50,7 +56,7 @@ export const LeaveMange = () => {
       .imployeeID.toLowerCase()
       .includes(e.target.value.toLowerCase())
     );
-    console.log(data)
+    // console.log(data)
     setFilter(data);
   }
 
@@ -91,10 +97,10 @@ export const LeaveMange = () => {
 
         </div>
       </div>
-      {!leave? <div>Loadding....</div> :(
+      {loading? <LoadingPage /> :(
       <div className='mt-6 p-4'>
         <DataTable 
-          columns={columns} data={filters} >
+          columns={columns} data={filters} pagination >
         </DataTable>
       </div>
       )}

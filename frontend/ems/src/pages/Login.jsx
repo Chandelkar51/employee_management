@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import {useAuth} from '../context/auth.context.jsx'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Login= ()=>{
     const [email, setEmail]=useState('')
@@ -25,15 +26,17 @@ const Login= ()=>{
                 else{
                     navigate('/employee-dashboard');
                 }
-                alert("succefully login");
+                toast.success("Succefully login");
             }
         }
         catch(error){
             if(error.response && !error.response.data.success){
                 setError(error.response.data.error);
+                toast.error(error.response.data.error);
             }
             else{
                 setError("LoginPage Server Error");
+                toast.error("LoginPage Server Error");
             }
         }
     }

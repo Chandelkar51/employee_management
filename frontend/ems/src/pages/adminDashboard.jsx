@@ -3,12 +3,13 @@ import { useAuth } from '../context/auth.context'
 import { Outlet, useNavigate } from 'react-router-dom';
 import { AdminSidebar } from '../components/AdminSidebar.jsx';
 import { Navbar } from '../components/Navbar.jsx';
+import { LoadingPage } from '../components/LoadingPage.jsx';
 
 const AdminDashboard = () => {
   const {user, loading}=useAuth();
   const navigate=useNavigate()
   if(loading){
-    return <div>Loading......</div>
+    return <LoadingPage />
   }
   if(!user){
     navigate('/login');

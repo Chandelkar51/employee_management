@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useAuth } from '../context/auth.context'
+import { toast } from 'react-toastify'
+import { LoadingPage } from './LoadingPage'
 
 export const ViewSalary = () => {
     const {user}=useAuth()
     const {id}=useParams()
     const [salary, setSalary]= useState([])
     const [filteredSalary, setFilteredSalary]=useState([])
+    const [loading, setLoading]=useState(true);
 
     useEffect(()=>{
         const fetchSalary= async()=>{
@@ -21,11 +24,12 @@ export const ViewSalary = () => {
                 if(response.data.success){
                     setSalary(response.data.salaries);
                     setFilteredSalary(response.data.salaries);
+                    setLoading(false);
                 }
             }
             catch(error){
                 if(error.response && !error.response.data.success)
-                alert(error.response.data.error);
+                    toast.error(error.response.data.error);
             }
         }
         fetchSalary();
@@ -39,19 +43,19 @@ export const ViewSalary = () => {
 
     let sno=1;
   return (
-    filteredSalary=== null ? <div>Loading....</div> : (
-        <div className='overflow-x-auto p-5'>
+      <div className='overflow-x-auto p-5'>
             <div className='text-center my-2'>
                 <h3 className='text-2xl font-bold mb-4'>Salary History</h3>
             </div>
             {/* <div className='flex justify-end my-3 '>
                 <input type="text" 
-                    placeholder='Search by EmpID' 
-                    onChange={handleFilter}
-                    className='rounded-md px-4 py-0.5 border'
+                placeholder='Search by EmpID' 
+                onChange={handleFilter}
+                className='rounded-md px-4 py-0.5 border'
                 />
             </div> */}
-            {filteredSalary.length >0 ? (
+            {loading ? <LoadingPage /> : (
+            filteredSalary.length >0 ? (
                 <table className='w-full text-sm text-left text-gray-500'>
                     <thead className='text-xs text-gray-700 uppercase bg-gray-50 border '>
                         <tr>
@@ -81,8 +85,8 @@ export const ViewSalary = () => {
                         ))}
                     </tbody>
                 </table>
-            ) : <div className='border border-gray-300 text-center text-xl'>No Records</div>}
+            ) : <div className='border border-gray-300 text-center text-xl'>No Records</div>
+            )}
         </div>
     )
-  )
 }

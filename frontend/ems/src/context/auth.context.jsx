@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import axios from 'axios';
+import { toast } from 'react-toastify';
+
 const UserContext=createContext();
 
 const AuthContext = ({children}) => {
   const [user, setUser]=useState(null)
   const [loading, setLoading]=useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(()=>{
     const verifyUser=async()=>{
@@ -27,7 +28,7 @@ const AuthContext = ({children}) => {
         }
       }catch(error){
         if(error.response && !error.response.data.success){
-          setError(error.response.data.error);
+          toast.error(error.response.data.error);
           setUser(null);
         }
       }
@@ -45,7 +46,7 @@ const AuthContext = ({children}) => {
   const logout=()=>{
     setUser(null);
     localStorage.removeItem("token");
-    alert("You Loged Out")
+    toast.success("You Loged Out")
   }
   
   return (

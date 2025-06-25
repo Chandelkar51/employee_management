@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const AddDepartment = () => {
   const [department, setDepartment]=useState({
@@ -22,13 +23,13 @@ export const AddDepartment = () => {
           headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`},
         });
       if(response.data.success){
-        alert("New Department Added");
+        toast.success("New Department Added");
         navigate('/admin-dashboard/departments');
       }
     }
     catch(error){
       if(error.response && !error.response.data.success)
-        alert(error.response.data.error);
+        toast.error(error.response.data.error);
     }
   }
 

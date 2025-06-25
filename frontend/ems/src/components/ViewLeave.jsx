@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import {toast} from 'react-toastify'
+import { LoadingPage } from './LoadingPage'
 
 export const ViewLeave = () => {
   const {id}= useParams()
@@ -20,7 +22,7 @@ export const ViewLeave = () => {
       }
       catch(error){
         if(error.response && !error.response.data.success)
-            alert(error.response.data.error);
+          toast.error(error.response.data.error);
       }
   }
 
@@ -44,7 +46,7 @@ export const ViewLeave = () => {
       }
       catch(error){
         if(error.response && !error.response.success){ 
-          alert(error.response)
+          toast.error(error.response)
         }
       }
   }
@@ -111,7 +113,7 @@ export const ViewLeave = () => {
         </div>
       ):""}  
     </div>
-    ) :<div>Loading....</div> 
+    ) : <LoadingPage />
   )
- }
+}
  

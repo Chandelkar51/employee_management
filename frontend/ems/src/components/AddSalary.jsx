@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { fetchDepartments, fetchEmployees } from '../../util/EmployeeHelper'
+import { toast } from 'react-toastify'
 
 export const AddSalary = () => {
     const [employee, setEmployee]=useState({
@@ -79,18 +80,18 @@ export const AddSalary = () => {
             );
 
             if(response.data.success){
-                alert("Salary updated");
+                toast.success("Salary updated");
                 navigate('/admin-dashboard/employee');
             }
         }
         catch(error){
           if(error.response && !error.response.data.success)
-            alert(error.response.data.error);
+            toast.error(error.response.data.error);
         }
     }
 
   return (
-    !employee ? <div>Loading....</div> :
+    // !employee ? <div>Loading....</div> :
     <div className='max-w-4xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md '>
         <h2 className='text-2xl font-bold mb-6 '>Add Salary</h2>
         <form onSubmit={handleSubmit}>

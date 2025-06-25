@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { fetchDepartments } from '../../util/EmployeeHelper'
+import {toast} from 'react-toastify'
+import { LoadingPage } from './LoadingPage'
 
 export const EditEmployee = () => {
     const [employee, setEmployee]=useState({
@@ -44,7 +46,7 @@ export const EditEmployee = () => {
             }
             catch(error){
                 if(error.response && !error.response.data.success)
-                alert(error.response.data.error);
+                toast.error(error.response.data.error);
             }
         }
     
@@ -67,18 +69,18 @@ export const EditEmployee = () => {
             });
 
             if(response.data.success){
-                alert("Employee updated");
+                toast.info("Employee updated");
                 navigate('/admin-dashboard/employee');
             }
         }
         catch(error){
           if(error.response && !error.response.data.success)
-            alert(error.response.data.error);
+            toast.error(error.response.data.error);
         }
     }
 
   return (
-    !employee ? <div>Loading....</div> :
+    employee.name=="" ? <LoadingPage /> :
     <div className='max-w-4xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md '>
         <h2 className='text-2xl font-bold mb-6 '>Edit Employee</h2>
         <form onSubmit={handleSubmit}>

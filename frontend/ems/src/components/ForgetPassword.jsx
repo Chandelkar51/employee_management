@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import {toast} from 'react-toastify'
 
 export const FrorgetPassword=()=>{
     const [forget, setForget]=useState({
@@ -25,7 +26,7 @@ export const FrorgetPassword=()=>{
                 );
                 
                 if(response.data.success){
-                    alert("Password updated")
+                    toast.info("Password updated")
                     navigate('/employee-dashboard');
                     setError(null);
                 }
@@ -33,7 +34,7 @@ export const FrorgetPassword=()=>{
         }
         catch(error){
             if(error.response && !error.response.data.success)
-                alert(error.response.data.error);
+                toast.error(error.response.data.error);
         }
     }
     const handleChange=async(e)=>{

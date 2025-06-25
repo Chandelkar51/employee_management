@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import DataTable from 'react-data-table-component'
 import { columns, DepartmentButtons } from '../../util/departmentHelper.jsx'
 import axios from 'axios'
+import { toast } from 'react-toastify'
+import { LoadingPage } from './LoadingPage.jsx'
 
 export const Departments = () => {
   const [departments, setDepartments]=useState([])
@@ -32,7 +34,7 @@ export const Departments = () => {
       }
     catch(error){
       if(error.response && !error.response.data.success)
-        alert(error.response.data.error);
+        toast.error(error.response.data.error);
     }
     finally{
       setDepLoading(false);
@@ -53,8 +55,7 @@ export const Departments = () => {
     seetFilteredDepartments(records);
   }
 
-  return (
-    <>{depLoading ? <div>Loading.....</div>:
+  return (<>
     <div className='p-5'>
         <div className='text-center'>
             <h3 className='text-2xl font-bold'>Manage Departments</h3>
@@ -68,11 +69,12 @@ export const Departments = () => {
               className='px-4 py-1 bg-teal-600 rounded text-white' >
               Add new department</Link>
         </div>
+      {depLoading ? <LoadingPage />:
         <div className='p-2 mt-4'>
           <DataTable
             columns={columns} data={filteredDepartments} pagination >
           </DataTable>
-        </div>
+        </div>}
     </div>
-  }</>)
+  </>)
 }

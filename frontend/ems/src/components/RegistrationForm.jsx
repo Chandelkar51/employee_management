@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 export const RegistrationForm = () => {
     const [formData, setFormData]=useState({})
@@ -34,13 +35,13 @@ export const RegistrationForm = () => {
             });
 
             if(response.data.success){
-                alert("Register successfully");
+                toast.success("Register successfully");
                 navigate('/login');
             }
         }
         catch(error){
           if(error.response && !error.response.data.success)
-            alert(error.response.data.error);
+            toast.error(error.response.data.error);
         }
     }
 

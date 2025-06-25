@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useAuth } from "../context/auth.context"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 
 export const Setting= ()=>{
     const {user}=useAuth()
@@ -34,7 +35,7 @@ export const Setting= ()=>{
                 );
 
                 if(response.data.success){
-                    alert("Password updated")
+                    toast.info("Password updated")
                     navigate('/employee-dashboard');
                     setError(null);
                 }
@@ -42,7 +43,7 @@ export const Setting= ()=>{
         }
         catch(error){
             if(error.response && !error.response.data.success)
-                alert(error.response.data.error);
+                toast.error(error.response.data.error);
         }
     }
 

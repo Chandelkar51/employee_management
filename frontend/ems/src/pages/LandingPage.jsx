@@ -5,12 +5,13 @@ import Features from '../components/landingPage/Features';
 import Footer from '../components/landingPage/Footer';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/auth.context';
+import { LoadingPage } from '../components/LoadingPage';
 
 const LandingPage = () => {
   const {user, loading}=useAuth();
   const navigate=useNavigate()
   if(loading){
-    return <div>Loading......</div>
+    return <LoadingPage /> ;
   }
   if(!user);
   else if(user.role==="employee"){

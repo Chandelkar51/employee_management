@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { SummaryCard } from './SummaryCard'
 import axios from 'axios'
+import {toast} from 'react-toastify'
 
 export const AdminSummary = () => {
   const [summary, setSummary]= useState(null)
@@ -20,7 +21,7 @@ export const AdminSummary = () => {
       }
       catch(error){
         if(error.response.data.error && !error.response.data.success){
-          alert(error.response.data.error)
+          toast.error(error.response.data.error)
         }
       }
     }

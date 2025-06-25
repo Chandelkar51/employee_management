@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import {toast} from 'react-toastify'
 
 export const fetchDepartments=async ()=>{
     let department;
@@ -15,7 +15,7 @@ export const fetchDepartments=async ()=>{
       }
     catch(error){
       if(error.response && !error.response.data.success)
-        alert(error.response.data.error);
+        toast.error(error.response.data.error);
     }
     return department;
 }
@@ -97,7 +97,7 @@ export const fetchEmployees=async (id)=>{
     }
   catch(error){
     if(error.response && !error.response.data.success)
-      alert(error.response.data.error);
+      toast.error(error.response.data.error);
   }
   return employee;
 }

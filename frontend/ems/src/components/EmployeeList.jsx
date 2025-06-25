@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import DataTable from 'react-data-table-component'
 import { columns, EmployeeButtons } from '../../util/EmployeeHelper'
+import {toast} from 'react-toastify'
+import { LoadingPage } from './LoadingPage'
 
 export const EmployeeList = () => {
   const [employees, setEmployees]=useState([])
@@ -35,7 +37,7 @@ export const EmployeeList = () => {
         }
       catch(error){
         if(error.response && !error.response.data.success)
-          alert(error.response.data.error);
+          toast.error(error.response.data.error);
       }
       finally{
         setEmpLoading(false);
@@ -53,7 +55,6 @@ export const EmployeeList = () => {
   }
 
   return (
-    empLoading ? <div>Loading....</div> :
     <div className='px-5 py-2'>
         <div className='text-center my-2'>
             <h3 className='text-2xl font-bold'>Manage Employees</h3>
@@ -67,11 +68,12 @@ export const EmployeeList = () => {
               className='px-4 py-1 bg-teal-600 rounded text-white' >
               Add new employee</Link>
         </div>
+        {empLoading ? <LoadingPage /> :
         <div className='py-2 m-2'>
           <DataTable
             columns={columns} data={filteredEmployees} pagination >
           </DataTable>
-        </div>
+        </div>}
     </div>
   )
 }
