@@ -11,6 +11,37 @@ export const LeaveMange = () => {
   const [filters, setFilter]=useState([]);
   const [loading, setLoading]=useState(false);
 
+  function day(start, end){
+    const month=[31,28,31,30,31,30,31,31,30,31,30,31];
+    if(end.getMonth()< start.getMonth()){
+      let i=start.getMonth()+1;
+      let days=0;
+      while(i != end.getMonth()){
+        if(i==1 && end.getFullYear()%4==0)
+          days+=29;
+        else
+          days+=month[i];
+        i=(i+1)%12;
+      }
+      days+=(new Date(start.getFullYear(), start.getMonth()+1, 0).getDate()-start.getDate())+end.getDate();
+      return days;
+    }
+    else if(start.getMonth() < end.getMonth()){
+      let i=start.getMonth()+1;
+      let days=0;
+      while(i < end.getMonth()){
+        if(i==1 && (start.getFullYear()%4==0 || end.getFullYear()%4==0))
+          days+=29;
+        else
+          days+=month[i];
+        i++;
+      }
+      days+=(new Date(start.getFullYear(), start.getMonth()+1, 0).getDate()-start.getDate())+end.getDate();
+      return days;
+    }
+    return end.getDate()-start.getDate();
+  }
+// console.log(day(new Date("11/12/2027"), new Date("11/25/2028")))
   useEffect(()=>{
     const fetchLeves= async()=>{
       setLoading(true);
@@ -29,7 +60,7 @@ export const LeaveMange = () => {
             name: leaves.employeeID?.userId.name,
             leaveType: leaves.leaveType,
             department: leaves.employeeID?.department?.dep_name,
-            days: new Date(leaves.endDate).getDate() - new Date(leaves.startDate).getDate(), // it will be negative in some case.
+            days: day(new Date(leaves.startDate), new Date(leaves.endDate)), // it will be negative in some case.
             status: leaves.status,
             action: <LeaveButtons id={leaves._id} />,
 
