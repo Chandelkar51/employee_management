@@ -25,6 +25,8 @@ import { EmployeeSummary } from './components/EmployeeSummary.jsx'
 import LandingPage from './pages/LandingPage.jsx'
 import { RegistrationForm } from './components/RegistrationForm.jsx'
 import { FrorgetPassword } from './components/ForgetPassword.jsx'
+import { Attendance } from './components/Attendance.jsx'
+import AttendanceReport from './components/AttendanceReport.jsx'
 
 function App() {
 
@@ -44,23 +46,27 @@ function App() {
           </PrivateRoutes>
           }>
           <Route index element={<AdminSummary />}></Route>
-          <Route path='/admin-dashboard/departments' index element={<Departments />}></Route>
-          <Route path='/admin-dashboard/add-department' index element={<AddDepartment />}></Route>
-          <Route path='/admin-dashboard/department/:id' index element={<EditDepartment />}></Route>
+
+          <Route path='departments' index element={<Departments />}></Route>
+          <Route path='add-department' index element={<AddDepartment />}></Route>
+          <Route path='department/:id' index element={<EditDepartment />}></Route>
           
-          <Route path='/admin-dashboard/employee' index element={<EmployeeList />}></Route>
-          <Route path='/admin-dashboard/add-employee' index element={<AddEmployee />}></Route>
-          <Route path='/admin-dashboard/employee/:id' index element={<ViewEmployee />}></Route>
-          <Route path='/admin-dashboard/employee/edit/:id' index element={<EditEmployee />}></Route>
-          <Route path='/admin-dashboard/employee/salary/:id' index element={<ViewSalary />}></Route>
-          <Route path='/admin-dashboard/employee/leave/:id' index element={<LeaveList />}></Route>
+          <Route path='attendance' index element={<Attendance />}></Route>
+          <Route path='attendance/report' index element={<AttendanceReport />}></Route>
+          
+          <Route path='employee' index element={<EmployeeList />}></Route>
+          <Route path='add-employee' index element={<AddEmployee />}></Route>
+          <Route path='employee/:id' index element={<ViewEmployee />}></Route>
+          <Route path='employee/edit/:id' index element={<EditEmployee />}></Route>
+          <Route path='employee/salary/:id' index element={<ViewSalary />}></Route>
+          <Route path='employee/leave/:id' index element={<LeaveList />}></Route>
 
-          <Route path='/admin-dashboard/leave' index element={<LeaveMange />}></Route>
-          <Route path='/admin-dashboard/leave/:id' index element={<ViewLeave />}></Route>
+          <Route path='leave' index element={<LeaveMange />}></Route>
+          <Route path='leave/:id' index element={<ViewLeave />}></Route>
 
-          <Route path='/admin-dashboard/salary/add' index element={<AddSalary />}></Route>
+          <Route path='salary/add' index element={<AddSalary />}></Route>
 
-          <Route path='/admin-dashboard/setting' index element={<Setting />}></Route>
+          <Route path='setting' index element={<Setting />}></Route>
         </Route>
         
         <Route path='/employee-dashboard' element={
@@ -71,11 +77,11 @@ function App() {
           </PrivateRoutes>
           }>
           <Route index element={  <EmployeeSummary/>}></Route>
-          <Route path='/employee-dashboard/employee/:id' index element={<ViewEmployee />}></Route>
-          <Route path='/employee-dashboard/leave' index element={<LeaveList />}></Route>
-          <Route path='/employee-dashboard/apply-leave' index element={<ApplyLeave />}></Route>
-          <Route path='/employee-dashboard/salary' index element={<ViewSalary />}></Route>
-          <Route path='/employee-dashboard/setting' index element={<Setting />}></Route>
+          <Route path='employee/:id' index element={<ViewEmployee />}></Route>
+          <Route path='leave' index element={<LeaveList />}></Route>
+          <Route path='apply-leave' index element={<ApplyLeave />}></Route>
+          <Route path='salary' index element={<ViewSalary />}></Route>
+          <Route path='setting' index element={<Setting />}></Route>
 
         </Route>
 

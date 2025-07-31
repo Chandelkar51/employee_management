@@ -10,6 +10,7 @@ import salaryRouter from './routes/salary.routes.js'
 import leaveRouter from './routes/leave.routes.js'
 import settingRouter from './routes/setting.routes.js'
 import dashboardRouter from './routes/dashboard.routes.js'
+import attendanceRouter from './routes/attendance.routes.js'
 
 const app=Express();
 
@@ -25,6 +26,7 @@ app.use('/api/salary', salaryRouter);
 app.use('/api/leave', leaveRouter);
 app.use('/api/setting', settingRouter);
 app.use('/api/dashboard', dashboardRouter);
+app.use('/api/attendance', attendanceRouter);
 
 app.listen(process.env.PORT, ()=>{
     dbConnection();

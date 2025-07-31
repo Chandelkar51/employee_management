@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { SummaryCard } from './SummaryCard'
 import axios from 'axios'
+import { ShowAttendance } from './ShowAttendance'
 
 export const EmployeeSummary = () => {
   const [summary, setSummary]= useState(null)
@@ -30,9 +31,9 @@ export const EmployeeSummary = () => {
     
   return (
     <div className='mt-4'>
-      {/* <h3 className='text-2xl font-bold pl-4'>Dashboard Overview</h3> */}
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-4 m-2'>
-        <SummaryCard icon={<i className='fa-solid fa-user'></i>} text={"Welcome"} color='bg-gray-600' />
+      <h3 className='text-2xl font-bold pl-4'>Dashboard Overview</h3>
+      <div className='m-2'>
+        <ShowAttendance />
       </div>
       <div className='mt-2'>
         <h4 className='text-center text-2xl font-bold'>Leave Details</h4>

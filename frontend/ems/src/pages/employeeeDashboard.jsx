@@ -1,19 +1,14 @@
-import React from 'react'
 import { EmployeeSidebar } from '../components/EmployeeSidebar'
 import { Navbar } from '../components/Navbar'
 import { Outlet } from 'react-router-dom'
-import { SummaryCard } from '../components/SummaryCard'
 
 const EmployeeeDashboard = () => {
-  return (<div className=''>
+  return (<div className='bg-gray-100 min-h-screen'>
     <Navbar  />
-    <div className='flex bg-gray-100 h-screen'>
-      <EmployeeSidebar />
-      <div className='flex-1'>
-        <Outlet />
-      </div>
+    <EmployeeSidebar />
+    <div className='ml-64 pt-14 p-4'>
+      <Outlet />
     </div>
-
   </div>) 
 }
 

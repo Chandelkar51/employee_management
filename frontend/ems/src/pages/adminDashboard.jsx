@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import { useAuth } from '../context/auth.context'
 import { Outlet, useNavigate } from 'react-router-dom';
 import { AdminSidebar } from '../components/AdminSidebar.jsx';
@@ -15,14 +14,12 @@ const AdminDashboard = () => {
     navigate('/login');
   }
   
-  return (<div className=''>
-    <Navbar  />
-    <div className='flex bg-gray-100 h-screen'>
+  return (<div className='bg-gray-100 min-h-screen'>
+      <Navbar  />
       <AdminSidebar />
-      <div className='flex-1'>
+      <div className='ml-64 pt-14 p-4'>
         <Outlet />
       </div>
-    </div>
   </div>) 
 }
 
