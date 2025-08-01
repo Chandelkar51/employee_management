@@ -2,7 +2,7 @@ import Attendance from "../models/attendance.js";
 
 export const getDetails = async(req, res) => {
   try {
-    const date=new Date(Date.now()).toLocaleDateString();
+    const date=`${new Date(Date.now()).getDate()}/${new Date(Date.now()).getMonth()+1}/${new Date(Date.now()).getFullYear()}`;
     
     const attendance=await Attendance.find({date: date}).populate({
         path : "empID",
