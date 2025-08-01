@@ -71,7 +71,8 @@ const AttendanceReport = () => {
     <div className='overflow-auto'>
         <div className='font-bold text-2xl py-4 text-center'>
           <button  onClick={() => navigate(-1)}
-            className=" fixed left-76  cursor-pointer p-1 rounded-full border border-gray-400 hover:bg-gray-300 "
+            title='back'
+            className=" fixed left-66  cursor-pointer p-1 rounded-full border border-gray-400 hover:bg-gray-300 z-10"
             > <ArrowLeft />
           </button>
           <span>Previous Attendace Reports</span>
