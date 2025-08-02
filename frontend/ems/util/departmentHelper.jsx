@@ -3,22 +3,6 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import {toast} from 'react-toastify'
 
-export const columns=[
-    {
-    name: "S No.",
-    selector: (row)=>row.sno
-    },
-    {
-        name: "Departmrnt Name",
-        selector: (row)=>row.dep_name,
-        sortable: true,
-    },
-    {
-        name: "Action",
-        selector: (row)=>row.action
-    },
-]
-
 export const DepartmentButtons=({_id, onDepartmentDelete})=>{
     const navigate=useNavigate()
     const [depLoading, setDepLoading]=useState(false)
@@ -48,11 +32,11 @@ export const DepartmentButtons=({_id, onDepartmentDelete})=>{
     return (
         <div className="flex space-x-3">
             <button 
-                className="px-3 py-1 bg-teal-600 text-white rounded "
+                className="px-3 py-1 bg-teal-500 text-white rounded "
                 onClick={()=>navigate(`/admin-dashboard/department/${_id}`)}
                 >Edit</button>
             <button 
-                className="px-3 py-1 bg-red-600 text-white rounded "
+                className="px-3 py-1 bg-red-400 text-white rounded "
                 onClick={()=>handleDelete(_id)}
                 >Delete</button>
         </div>
