@@ -1,4 +1,5 @@
 import Department from "../models/department.js";
+import Employee from "../models/employee.js";
 
 export const addDepartment=async (req, res)=>{
     try{
@@ -23,7 +24,14 @@ export const addDepartment=async (req, res)=>{
 
 export const getDepartment=async (req, res)=>{
     try{
-        const departments=await Department.find();
+        const departments=await Department.find().lean();
+        if(!departments)
+            return res.status(404).json({success:false, error: "Data not featched try again!"});
+        
+        for(const dep of departments){
+            dep.count= await Employee.countDocuments({department : dep._id})
+        }
+
         return res.status(202).json({success: true, departments});
     }
     catch(error){
